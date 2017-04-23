@@ -10,7 +10,7 @@ import UIKit
 import AssetsLibrary
 
 
-class ViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+class ViewController: UIViewController , UINavigationControllerDelegate{
     @IBOutlet weak var originImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -32,7 +32,6 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         // Do any additional setup after loading the view, typically from a nib.
         let fileURL = Bundle.main.url(forResource: "image" , withExtension: "png")
         beginImage = CIImage(contentsOf: fileURL!)
-        
         filter = CIFilter(name: "CISepiaTone") // 棕色色调
         filter.setValue(beginImage, forKey: kCIInputImageKey)
         filter.setValue(0.5, forKey: kCIInputIntensityKey)
@@ -50,7 +49,7 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         self.imageView.image = newImage
  
         
-        logAllFilters() 
+        CIFilter.logAllFilters();
     }
 
    
@@ -60,8 +59,7 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         
 //        filter.setValue(sliderValue, forKey: kCIInputIntensityKey)
 //        let outputImage = filter.outputImage!
-        let outputImage = self.oldPhoto(img: beginImage, withAmount: sliderValue)
-        
+        let outputImage = CIFilter.oldPhoto(img: beginImage, withAmount: sliderValue)
         let cgimg = context.createCGImage(outputImage, from: outputImage.extent)
         let newImage = UIImage(cgImage: cgimg!, scale: 1, orientation: orientation);
         self.imageView.image = newImage
@@ -97,49 +95,20 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
     }
     
     
-    func logAllFilters() {
-        let properties = CIFilter.filterNames(inCategory: kCICategoryBuiltIn)
-        print(properties)
-        
-        for filterName: String in properties {
-            let fltr = CIFilter(name:filterName as String)
-            print(fltr!.attributes)
-        }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-    
-    func oldPhoto(img: CIImage, withAmount intensity: Float) -> CIImage {
-        // 1
-        let sepia = CIFilter(name:"CISepiaTone")!
-        sepia.setValue(img, forKey:kCIInputImageKey)
-        sepia.setValue(intensity, forKey:"inputIntensity")
-        
-        // 2
-        let random = CIFilter(name:"CIRandomGenerator")!
-        
-        // 3
-        let lighten = CIFilter(name:"CIColorControls")!
-        lighten.setValue(random.outputImage, forKey:kCIInputImageKey)
-        lighten.setValue(1 - intensity, forKey:"inputBrightness")
-        lighten.setValue(0, forKey:"inputSaturation")
-        
-        // 4
-        let croppedImage = lighten.outputImage?.cropping(to: beginImage.extent)
-        
-        // 5
-        let composite = CIFilter(name:"CIHardLightBlendMode")!
-        composite.setValue(sepia.outputImage, forKey:kCIInputImageKey)
-        composite.setValue(croppedImage, forKey:kCIInputBackgroundImageKey)
-        
-        // 6
-        let vignette = CIFilter(name:"CIVignette")!
-        vignette.setValue(composite.outputImage, forKey:kCIInputImageKey)
-        vignette.setValue(intensity * 2, forKey:"inputIntensity")
-        vignette.setValue(intensity * 30, forKey:"inputRadius")
-        
-        // 7
-        return vignette.outputImage!
-    }
-    
+
+
+}
+
+
+
+
+extension ViewController: UIImagePickerControllerDelegate
+{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.dismiss(animated: true, completion: nil);
         print(info);
@@ -151,13 +120,6 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         filter.setValue(beginImage, forKey: kCIInputImageKey)
         self.amountSliderValueChanged(amountSlider)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
 

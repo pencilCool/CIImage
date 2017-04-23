@@ -31,7 +31,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y2v-u8-vkB">
-                                <rect key="frame" x="67.5" y="420" width="240" height="150"/>
+                                <rect key="frame" x="67.5" y="517" width="240" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Iyd-Wh-PW7"/>
                                     <constraint firstAttribute="width" secondItem="Y2v-u8-vkB" secondAttribute="height" multiplier="8:5" id="dQl-qv-WNu"/>
@@ -47,7 +47,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GQ1-8v-OEy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FGP-9k-P9k"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Y2v-u8-vkB" secondAttribute="bottom" constant="97" id="QmR-pU-J1h"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Y2v-u8-vkB" secondAttribute="bottom" id="QmR-pU-J1h"/>
                             <constraint firstItem="Y2v-u8-vkB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="USI-yL-Gri"/>
                             <constraint firstItem="jbw-q4-JKU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="191" id="YKX-0f-bBf"/>
                             <constraint firstItem="jbw-q4-JKU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cut-t6-Hol"/>
