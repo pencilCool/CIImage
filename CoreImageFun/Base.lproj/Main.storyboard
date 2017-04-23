@@ -57,7 +57,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2z8-et-hPd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="8fb-6o-j89"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="8fb-6o-j89">
+                            <connections>
+                                <action selector="loadPhoto:" destination="BYZ-38-t0r" id="TxW-G8-Txx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="amountSlider" destination="GQ1-8v-OEy" id="juJ-A4-qsB"/>

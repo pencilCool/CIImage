@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     @IBOutlet weak var originImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -67,6 +67,26 @@ class ViewController: UIViewController {
     
  
 
+    @IBAction func loadPhoto(_ sender: Any) {
+        
+        let pickerC = UIImagePickerController()
+        pickerC.delegate = self
+        self.present(pickerC, animated: true, completion: nil)
+        
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        self.dismiss(animated: true, completion: nil);
+        print(info);
+        
+        
+        let gotImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        beginImage = CIImage(image:gotImage)
+        filter.setValue(beginImage, forKey: kCIInputImageKey)
+        self.amountSliderValueChanged(amountSlider)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,4 +95,7 @@ class ViewController: UIViewController {
 
 
 }
+
+
+
 
