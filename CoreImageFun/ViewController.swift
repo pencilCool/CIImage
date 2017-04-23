@@ -21,6 +21,7 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
     var filter: CIFilter!
     var beginImage: CIImage!
     
+    var orientation: UIImageOrientation = .down
     
     
     override func viewDidLoad() {
@@ -62,7 +63,7 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         
         let cgimg = context.createCGImage(outputImage!, from: outputImage!.extent)
         
-        let newImage = UIImage(cgImage: cgimg!)
+        let newImage = UIImage(cgImage: cgimg!, scale: 1, orientation: orientation);
         self.imageView.image = newImage
         
     }
@@ -102,7 +103,7 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         
         
         let gotImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        
+        orientation = gotImage.imageOrientation
         beginImage = CIImage(image:gotImage)
         filter.setValue(beginImage, forKey: kCIInputImageKey)
         self.amountSliderValueChanged(amountSlider)
