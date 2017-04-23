@@ -50,7 +50,7 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         self.imageView.image = newImage
  
         
-        
+        logAllFilters() 
     }
 
    
@@ -95,6 +95,18 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
                                              completionBlock:nil)
         
     }
+    
+    
+    func logAllFilters() {
+        let properties = CIFilter.filterNames(inCategory: kCICategoryBuiltIn)
+        print(properties)
+        
+        for filterName: String in properties {
+            let fltr = CIFilter(name:filterName as String)
+            print(fltr!.attributes)
+        }
+    }
+    
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
