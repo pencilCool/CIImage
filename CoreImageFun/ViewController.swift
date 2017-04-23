@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AssetsLibrary
+
 
 class ViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     @IBOutlet weak var originImageView: UIImageView!
@@ -72,6 +74,24 @@ class ViewController: UIViewController , UINavigationControllerDelegate, UIImage
         let pickerC = UIImagePickerController()
         pickerC.delegate = self
         self.present(pickerC, animated: true, completion: nil)
+        
+    }
+    
+    
+    @IBAction func savePhoto(_ sender: Any) {
+        // 1
+        let imageToSave = filter.outputImage
+        
+        // 2
+        let softwareContext = CIContext(options:[kCIContextUseSoftwareRenderer: true])
+        
+        // 3
+        let cgimg = softwareContext.createCGImage(imageToSave!, from:imageToSave!.extent)
+        
+        // 4
+        let library = ALAssetsLibrary()
+        library.writeImage(toSavedPhotosAlbum: cgimg,metadata:imageToSave!.properties,
+                                             completionBlock:nil)
         
     }
     
