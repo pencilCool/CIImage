@@ -25,8 +25,18 @@ class ViewController: UIViewController {
         filter?.setValue(0.5, forKey: kCIInputIntensityKey)
         
         // 自动创建CIContext ，每次都创建所以有弊端
-        let newImage = UIImage(ciImage: (filter?.outputImage)!)
+        //let newImage = UIImage(ciImage: (filter?.outputImage)!)
+ 
+        let context = CIContext(options:nil)
+        
+        // 2
+        let cgimg = context.createCGImage(filter!.outputImage!, from: filter!.outputImage!.extent)
+        
+        // 3
+        let newImage = UIImage(cgImage: cgimg!)
         self.imageView.image = newImage
+        
+     
         
         
         
